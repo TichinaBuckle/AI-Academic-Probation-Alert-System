@@ -1,7 +1,7 @@
 # Group Members: - Tichina Buckle, Micah Brown, Robert Ramone, Winston
 # Date Last Updated: 3-18-2024
 # File Name: DatabaseConnection.py
-# Description:
+# Description: Connects Application to Database
 
 # libraries Used
 import mysql.connector
