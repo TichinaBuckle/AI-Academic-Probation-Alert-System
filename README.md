@@ -12,6 +12,6 @@ Teacher:
 - Howard James
 
 Tools Used:
-- Pycharm
+- Visual Studio Code
 - SWI-Prolong
 - Xampp
