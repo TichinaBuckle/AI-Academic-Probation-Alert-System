@@ -1,4 +1,4 @@
-# Group Members: - Tichina Buckle, Micah Brown, Robert Ramone, Winston
+# Group Members: - Tichina Buckle, Micah Brown, Ramoune Roberts, Winston
 # Date Last Updated: 3-18-2024
 # File Name: DatabaseConnection.py
 # Description: Connects Application to Database
