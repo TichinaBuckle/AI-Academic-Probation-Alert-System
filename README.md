@@ -4,9 +4,9 @@ AI-powered GPA Alert System: Python &amp; Prolog solution for UTECH AI course. G
 
 Group Members:
 - Tichina Buckle (1801448)
-- Micah Brown
-- Robert Ramoune
-- Winston
+- Winston Mcleod
+- Micah Brown (1802146)
+- Ramoune Roberts (1903967)
 
 Teacher:
 - Howard James
