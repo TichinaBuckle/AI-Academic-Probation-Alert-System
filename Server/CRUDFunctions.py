@@ -39,6 +39,21 @@ def ReadStudent(studentID):
         cursor.close()
         conn.close()
 
+# Retrieved all students from database
+def StudentList():
+    conn = DatabaseConnection.DatabaseConnection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT * FROM student_master")
+        students = cursor.fetchall()
+        for student in students:
+            print(student)
+    except Exception as e:
+        print(f"Error Fetching Students: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
 # Update student data in database
 def UpdateStudent(studentID, studentName, studentEmail, school, programme):
     conn = DatabaseConnection.DatabaseConnection()
@@ -100,6 +115,21 @@ def ReadModule(module):
         cursor.close()
         conn.close()
 
+# Retrieved all modules from database
+def ModuleList():
+    conn = DatabaseConnection.DatabaseConnection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT * FROM module_master")
+        modules = cursor.fetchall()
+        for module in modules:
+            print(module)
+    except Exception as e:
+        print(f"Error Fetching Modules: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
 # Update module data in database
 def UpdateModule(module, numberOfCredit):
     conn = DatabaseConnection.DatabaseConnection()
@@ -131,11 +161,11 @@ def DeleteModule(module):
 # CRUD Functions for Module Detail
 
 # Create / Add Module Detail to database
-def CreateModuleDetail(module, year, semester, student_id, grade_point):
+def CreateModuleDetail(module, year, semester, studentId, gradePoint):
     conn = DatabaseConnection.DatabaseConnection()
     cursor = conn.cursor()
     try:
-        cursor.execute("INSERT INTO module_detail (module, year, semester, student_id, grade_point) VALUES (%s, %s, %s, %s, %s)", (module, year, semester, student_id, grade_point))
+        cursor.execute("INSERT INTO module_detail (module, year, semester, student_id, grade_point) VALUES (%s, %s, %s, %s, %s)", (module, year, semester, studentId, gradePoint))
         conn.commit()
         print("Module Detail Added successfully!")
     except Exception as e:
@@ -161,12 +191,27 @@ def ReadModuleDetail(id):
         cursor.close()
         conn.close()
 
-# Update module detail in database
-def UpdateModuleDetail(id, module, year, semester, student_id, grade_point):
+# Retrieved all modules details from database
+def ModuleDetailList():
     conn = DatabaseConnection.DatabaseConnection()
     cursor = conn.cursor()
     try:
-        cursor.execute("UPDATE module_detail SET module = %s, year = %s, semester = %s, student_id = %s, grade_point = %s WHERE id = %s", (module, year, semester, student_id, grade_point, id))
+        cursor.execute("SELECT * FROM module_detail")
+        module_details = cursor.fetchall()
+        for module_detail in module_details:
+            print(module_detail)
+    except Exception as e:
+        print(f"Error Fetching Module Details: {e}")
+    finally:
+        cursor.close()
+        conn.close()
+
+# Update module detail in database
+def UpdateModuleDetail(id, module, year, semester, studentId, gradePoint):
+    conn = DatabaseConnection.DatabaseConnection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("UPDATE module_detail SET module = %s, year = %s, semester = %s, student_id = %s, grade_point = %s WHERE id = %s", (module, year, semester, studentId, gradePoint, id))
         conn.commit()
         print("Module Detail Updated successfully!")
     except Exception as e:
