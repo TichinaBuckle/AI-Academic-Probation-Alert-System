@@ -21,13 +21,24 @@
 :- assert(default_gpa(2.2)).
 
 % Initialize total credits and total grade points
-total_credits(0).
-total_gpe(0).
+totalCredits(0).
+totalGpe(0).
+
+% Main func to get the credits and gp
+calculate :- write('Enter the credits of the module: '), read(Credits),
+            nl, write('Enter the grade point earned: '), read(Grade_Point),
+            calculate_gpe(Credits, Grade_Point, GPE),
+            addCredits(Credits, Total_Credits),
+            addGradePoints(GPE, Total_GPE),
+            nl, write('Do you want to enter another module? (y/n)'), read(Choice),
+            (Choice = 'y' -> calculate; calculate_gpa(Total_Credits, Total_GPE, GPA),
+            nl, write('Your GPA is: '), write(GPA)).
+
 
 % Calculations
 
 % Total Credits for the modules taken by the student taken in each semester
-totalcredit(StudentId, Year, Sem1_Cred, Sem2_Cred):-
+totalCredits(StudentId, Year, Sem1_Cred, Sem2_Cred):-
     findall(Credit, moddet(StudentId, Year, 1, Credit), CreditList1),
     sum_list(CreditList1, Sem1_Cred),   %Sem1
     findall(Credit, moddet(StudentId, Year, 2, Credit), CreditList2),
@@ -56,7 +67,7 @@ total_gpe_per_sem(StudentId, Year, Sem1Gp, Sem2Gp):-
 % Divide Total [GP earned] by the Total Credits for the module taken in each semester
 total_gpe(Year, Total_gpe_sem1, Total_gpe_sem2, StudentId):-
     total_gpe_per_sem(StudentId, Year, Sem1Gp, Sem2Gp),
-    totalcredit(StudentId, Year, Sem1_Cred, Sem2_Cred),
+    totalCredits(StudentId, Year, Sem1_Cred, Sem2_Cred),
     Total_gpe_sem1 is Sem1Gp / Sem1_Cred,
     (Sem2_Cred =:= 0 -> Total_gpe_sem2 is 0; Total_gpe_sem2 is Sem2Gp / Sem2_Cred).
 
@@ -65,7 +76,7 @@ total_gpe(Year, Total_gpe_sem1, Total_gpe_sem2, StudentId):-
 % If only semester one data is available then the [cumulative gpa] is the GPA for semester one
 cumulative_gpa(Year, Cum_GPA, StudentId):-
     total_gpe_per_sem(StudentId, Year, Sem1Gp, Sem2Gp),
-    totalcredit(StudentId, Year, Sem1_Cred, Sem2_Cred),
+    totalCredits(StudentId, Year, Sem1_Cred, Sem2_Cred),
     Total_gpe_sem is Sem1Gp + Sem2Gp,
     Total_credit is Sem1_Cred + Sem2_Cred,
     Cum_GPA is Total_gpe_sem / Total_credit.
