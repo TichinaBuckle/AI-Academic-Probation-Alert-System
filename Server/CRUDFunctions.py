@@ -3,8 +3,12 @@
 # File Name: CRUDFunctions.py
 # Description: Stores the Basic CRUD Functions
 
+import logging
 import mysql.connector
 import DatabaseConnection
+
+# Configure logging
+logging.basicConfig(filename='application.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Student CRUD Functions
 
@@ -15,9 +19,9 @@ def CreateStudent(studentID, studentName, studentEmail, school, programme):
     try:
         cursor.execute("INSERT INTO student_master (student_id, student_name, student_email, school, programme) VALUES (%s, %s, %s, %s, %s)", (studentID, studentName, studentEmail, school, programme))
         conn.commit()
-        print("Student Added successfully!")
+        logging.info("Student Added successfully!")
     except Exception as e:
-        print(f"Error Adding Student: {e}")
+        logging.error(f"Error Adding Student: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -30,11 +34,11 @@ def ReadStudent(studentID):
         cursor.execute("SELECT * FROM student_master WHERE student_id = %s", (studentID,))
         student = cursor.fetchone()
         if student is None:
-            print("Student not found.")
+            logging.info("Student not found.")
         else:
-            print(f"Student Found: {student}")
+            logging.info(f"Student Found: {student}")
     except Exception as e:
-        print(f"Error Finding Student: {e}")
+        logging.error(f"Error Finding Student: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -47,9 +51,9 @@ def StudentList():
         cursor.execute("SELECT * FROM student_master")
         students = cursor.fetchall()
         for student in students:
-            print(student)
+            logging.info(student)
     except Exception as e:
-        print(f"Error Fetching Students: {e}")
+        logging.error(f"Error Fetching Students: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -61,9 +65,9 @@ def UpdateStudent(studentID, studentName, studentEmail, school, programme):
     try:
         cursor.execute("UPDATE student_master SET student_name = %s, student_email = %s, school = %s, programme = %s WHERE student_id = %s", (studentName, studentEmail, school, programme, studentID))
         conn.commit()
-        print("Student Updated successfully!")
+        logging.info("Student Updated successfully!")
     except Exception as e:
-        print(f"Error Updating Student: {e}")
+        logging.error(f"Error Updating Student: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -75,9 +79,9 @@ def DeleteStudent(studentID):
     try:
         cursor.execute("DELETE FROM student_master WHERE student_id = %s", (studentID,))
         conn.commit()
-        print("Student Deleted successfully!")
+        logging.info("Student Deleted successfully!")
     except Exception as e:
-        print(f"Error Deleting Student: {e}")
+        logging.error(f"Error Deleting Student: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -91,9 +95,9 @@ def CreateModule(module, numberOfCredit):
     try:
         cursor.execute("INSERT INTO module_master (module, number_of_credit) VALUES (%s, %s)", (module, numberOfCredit))
         conn.commit()
-        print("Module Added successfully!")
+        logging.info("Module Added successfully!")
     except Exception as e:
-        print(f"Error Adding Module: {e}")
+        logging.error(f"Error Adding Module: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -106,11 +110,11 @@ def ReadModule(module):
         cursor.execute("SELECT * FROM module_master WHERE module = %s", (module,))
         module = cursor.fetchone()
         if module is None:
-            print("Module not found.")
+            logging.info("Module not found.")
         else:
-            print(f"Module Found: {module}")
+            logging.info(f"Module Found: {module}")
     except Exception as e:
-        print(f"Error Finding Module: {e}")
+        logging.error(f"Error Finding Module: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -123,9 +127,9 @@ def ModuleList():
         cursor.execute("SELECT * FROM module_master")
         modules = cursor.fetchall()
         for module in modules:
-            print(module)
+            logging.info(module)
     except Exception as e:
-        print(f"Error Fetching Modules: {e}")
+        logging.error(f"Error Fetching Modules: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -137,9 +141,9 @@ def UpdateModule(module, numberOfCredit):
     try:
         cursor.execute("UPDATE module_master SET number_of_credit = %s WHERE module = %s", (numberOfCredit, module))
         conn.commit()
-        print("Module Updated successfully!")
+        logging.info("Module Updated successfully!")
     except Exception as e:
-        print(f"Error Updating Module: {e}")
+        logging.error(f"Error Updating Module: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -151,9 +155,9 @@ def DeleteModule(module):
     try:
         cursor.execute("DELETE FROM module_master WHERE module = %s", (module,))
         conn.commit()
-        print("Module Deleted successfully!")
+        logging.info("Module Deleted successfully!")
     except Exception as e:
-        print(f"Error Deleting Module: {e}")
+        logging.error(f"Error Deleting Module: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -167,9 +171,9 @@ def CreateModuleDetail(module, year, semester, studentId, gradePoint):
     try:
         cursor.execute("INSERT INTO module_detail (module, year, semester, student_id, grade_point) VALUES (%s, %s, %s, %s, %s)", (module, year, semester, studentId, gradePoint))
         conn.commit()
-        print("Module Detail Added successfully!")
+        logging.info("Module Detail Added successfully!")
     except Exception as e:
-        print(f"Error Adding Module Detail: {e}")
+        logging.error(f"Error Adding Module Detail: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -182,11 +186,11 @@ def ReadModuleDetail(id):
         cursor.execute("SELECT * FROM module_detail WHERE id = %s", (id,))
         module_detail = cursor.fetchone()
         if module_detail is None:
-            print("Module Detail not found.")
+            logging.info("Module Detail not found.")
         else:
-            print(f"Module Detail Found: {module_detail}")
+            logging.info(f"Module Detail Found: {module_detail}")
     except Exception as e:
-        print(f"Error Finding Module Detail: {e}")
+        logging.error(f"Error Finding Module Detail: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -199,9 +203,9 @@ def ModuleDetailList():
         cursor.execute("SELECT * FROM module_detail")
         module_details = cursor.fetchall()
         for module_detail in module_details:
-            print(module_detail)
+            logging.info(module_detail)
     except Exception as e:
-        print(f"Error Fetching Module Details: {e}")
+        logging.error(f"Error Fetching Module Details: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -213,9 +217,9 @@ def UpdateModuleDetail(id, module, year, semester, studentId, gradePoint):
     try:
         cursor.execute("UPDATE module_detail SET module = %s, year = %s, semester = %s, student_id = %s, grade_point = %s WHERE id = %s", (module, year, semester, studentId, gradePoint, id))
         conn.commit()
-        print("Module Detail Updated successfully!")
+        logging.info("Module Detail Updated successfully!")
     except Exception as e:
-        print(f"Error Updating Module Detail: {e}")
+        logging.error(f"Error Updating Module Detail: {e}")
     finally:
         cursor.close()
         conn.close()
@@ -227,9 +231,9 @@ def DeleteModuleDetail(id):
     try:
         cursor.execute("DELETE FROM module_detail WHERE id = %s", (id,))
         conn.commit()
-        print("Module Detail Deleted successfully!")
+        logging.info("Module Detail Deleted successfully!")
     except Exception as e:
-        print(f"Error Deleting Module Detail: {e}")
+        logging.error(f"Error Deleting Module Detail: {e}")
     finally:
         cursor.close()
         conn.close()
